@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{ Layout = "childPageLayout.cshtml"; }
+
+@* the fun starts here *@
+
+@{ var cssPath = "~/css/pages/" + Model.UrlSegment + ".css";
+    var scriptPath = "~/scripts/pages/" + Model.UrlSegment + ".js";
+
+    if (isFileExist(cssPath))
+    {
+        Html.RequiresCss(Url.Content(cssPath), 2);
+    }
+
+    if (isFileExist(scriptPath))
+    {
+        Html.RequiresJs(Url.Content(scriptPath), 2);
+    }
+
+    var toolSource = Model.Value("toolSource"); }
+
+@functions { public bool isFileExist(string path)
+    {
+        return System.IO.File.Exists(HttpContext.Current.Server.MapPath(path));
+    } }
+
+@if (Model.HasValue("additionalText"))
+{
+<p>
+    @Model.Value("additionalText");
+</p>}
+
+<iframe class="eurolandtool"
+        allowtransparency=""
+        frameborder="0"
+        id="iframe-@Model.UrlSegment"
+        title="@Model.Value("pageTitle")"
+        marginheight="0"
+        marginwidth="0"
+        scrolling="no"
+        ea-src="@toolSource"
+        width="100%">
+</iframe>

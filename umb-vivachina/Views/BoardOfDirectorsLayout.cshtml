@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{ Layout = "childPageLayout.cshtml";
+    var contents = Model.Children().Where(x => x.IsVisible()).ToList();
+    Html.RequiresCss("~/css/pages/board-director.css", 2); }
+
+@* the fun starts here *@
+
+<div class="board-director-container container">
+
+    <div class="row">
+        @if (contents != null && contents.Any())
+        {
+            foreach (var item in contents)
+            {
+                var photo = "";
+                if (item.HasValue("photo") && item.Value<IPublishedContent>("photo") != null)
+                {
+                    photo = item.Value<IPublishedContent>("photo").Url();
+                }
+<div class="news-style-bod col-md-6 col-sm-6 col-xs-12">
+    <a href="@item.Url()" class="hover-effect" title="">
+        <img src="@photo" alt="">
+    </a>
+    <h4 class="subtitle services-title-one">
+        <a href="@item.Url()">@item.Value("productName").ToString()</a>
+    </h4>
+    <p> @item.Value("position").ToString()</p>
+
+</div>}
+}
+    </div>
+
+</div>

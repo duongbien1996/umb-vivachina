@@ -1,0 +1,18 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web.Models
+
+@{ Layout = null;
+    var home = Model.Root();
+    var redirectLink = Model.Value<Link>("redirectLink");
+    //IPublishedContent redirectLink = Model.Value<IPublishedContent>("redirectLink");
+    var nullUrl = "javascript:void(0)"; }
+
+@if (redirectLink != null && redirectLink.Url.Length > 0)
+{
+    Response.Redirect(redirectLink.Url);
+}
+else if (redirectLink == null)
+{
+    Response.Redirect(nullUrl);
+}
+

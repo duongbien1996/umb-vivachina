@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{ Layout = "masterLayout.cshtml";
+    var home = Model.Root();
+    var title = Model.Value("pageTitle");
+    if (Model.IsDocumentType("boardOfDirectorsItem"))
+    {
+        title = Model.Parent.Value("pageTitle");
+    } }
+
+@* the fun starts here *@
+
+<div class="childpage-content  @Model.Name.ToLower().Replace(" ", "-").Replace("'", "-")">
+    <div class="fluid-container">
+        <section class="childpage-banner banner">
+            @Html.Partial("Layout/Banner")
+        </section>
+        @{ Html.RenderPartial("layout/Breadcrumb"); }
+        <div class="inner-content">
+            <div class="container">
+                <div class="childpage-title">
+                    <h2> @title</h2>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>

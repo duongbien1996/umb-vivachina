@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{ Layout = "masterLayout.cshtml"; }
+
+@{ 
+    var home = Model.Root();
+}
+<div class="childpage-content  @Model.Name.ToLower().Replace(" ", "-").Replace("'", "-")">
+    <div class="fluid-container">
+        @Html.Partial("Layout/Breadcrumb")     
+        <div class="title-box">
+            
+        </div>
+        <div class="inner-content">
+                @RenderBody()
+        </div>
+    </div>
+</div>

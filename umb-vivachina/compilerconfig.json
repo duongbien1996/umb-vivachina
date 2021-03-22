@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "css/global/font-face.css",
+    "inputFile": "css/global/font-face.less"
+  },
+  {
+    "outputFile": "css/global/global.css",
+    "inputFile": "css/global/global.less"
+  }
+]

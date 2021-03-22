@@ -1,0 +1,64 @@
+
+// Cấu hình scroll body
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-thumb {
+    background: #a4b0be;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: $n-green;
+}
+body::-webkit-scrollbar-thumb:window-inactive {
+    background: #a4b0be;
+}
+
+// Cấu hình font
+body {
+    font-family: 'Montserrat' !important;
+    color: $n-black !important;
+    background-color: #fff !important;
+    @media (min-width: 1200px) {
+        .container {
+          max-width: 1200px;
+        }
+      }
+}
+html {
+    font-size: 100%;
+}
+
+// clear
+textarea:focus, input:focus,.btn:focus,.btn.focus{
+    outline: none;
+    box-shadow: none;
+}
+
+// reset thuộc tính thẻ a
+a {
+    text-decoration: none !important;
+}
+
+// Đặt khoảng cách trên dưới cho các page
+.wrap-content {
+    margin: 64px 0;
+}
+// set maxwidth cho class wrap-content-post sử dụng cho các bài post
+.wrap-content-post {
+    color: #8d8d8d;
+    font-weight: 400;
+    margin: 48px auto;
+    max-width: 840px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 28px;
+    figure {
+        margin-bottom: 30px;
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+}

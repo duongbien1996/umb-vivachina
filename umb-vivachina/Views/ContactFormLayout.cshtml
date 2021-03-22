@@ -1,0 +1,81 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = null;
+}
+@{
+
+    try
+    {
+        var receiveEmail = CMSCommon.Controllers.CMSCommon.defaultReceiveEmail;
+        var receiveEmails = Model.Value<string[]>("receiveEmails");
+        string submitMessage = "";
+        string surname = Umbraco.GetDictionaryValue("Name");
+        string email = Umbraco.GetDictionaryValue("Email");
+        string telephone = Umbraco.GetDictionaryValue("Phone Number");
+        string message = Umbraco.GetDictionaryValue("Message");
+        string recaptchaResponse = Request["g-recaptcha-response"] as string;
+        //g-recaptcha-response
+        if (!CMSCommon.Controllers.CMSCommon.CaptchaValidate(recaptchaResponse))
+        {
+            <div class="alert alert-error">Error: The captcha is invalid</div>
+            return;
+        }
+        var EmailTitle = "" + Umbraco.GetDictionaryValue("QAMCO Website General Enquiry Message") + "";//QAMCO Website General Enquiry Message
+        var HtmlBody = "";
+        if (!string.IsNullOrEmpty(Request["name"]))
+        {
+            HtmlBody += "<br />" + surname + ": " + Request["name"] as string;
+        }
+        if (!string.IsNullOrEmpty(Request["mobile"]))
+        {
+            HtmlBody += "<br />" + telephone + ": " + Request["mobile"] as string;
+        }
+        if (!string.IsNullOrEmpty(Request["email"]))
+        {
+            HtmlBody += "<br />" + email + ": " + Request["email"] as string;
+        }
+        if (!string.IsNullOrEmpty(Request["cmessage"]))
+        {
+            HtmlBody += "<br />" + message + ": " + Request["cmessage"] as string;
+        }
+        List<string> lstEmails = new List<string>();
+        if (receiveEmails.Any())
+        {
+            //add content email to a list
+            foreach (var _email in receiveEmails)
+            {
+                lstEmails.Add(_email);
+            }
+        }
+        else
+        {
+            //add default email
+            lstEmails.Add(receiveEmail);
+        }
+        foreach (var _email in lstEmails)
+        {
+            try
+            {
+                //send email
+                CMSCommon.Controllers.CMSCommon.SendAnEmail(_email, EmailTitle, HtmlBody);
+            }
+            catch (Exception ex)
+            {
+                //send email to admin about the system error
+                CMSCommon.Controllers.CMSCommon.SendErrorEmail("Error sending email", ex.ToString());
+            }
+        }
+
+        submitMessage += Umbraco.GetDictionaryValue("Your email has been sent, [name]. We'll be in touch with you as soon as possible!");
+        submitMessage = submitMessage.Replace("[name]", Request["name"]);
+        <div class="alert alert-success">Success: @submitMessage</div>
+    }
+
+    catch (Exception ex)
+    {
+        string errorSubmitMessage = ex.Message.ToString();
+        <div class="alert alert-error">Error: @errorSubmitMessage</div>
+    }
+
+
+}

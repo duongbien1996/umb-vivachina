@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{ Layout = "childPageLayout.cshtml";
+    Html.RequiresCss("~/css/pages/board-of-directors-item.css", 2);
+    var photo = "";
+    if (Model.HasValue("photo") && Model.Value<IPublishedContent>("photo") != null)
+    {
+        photo = Model.Value<IPublishedContent>("photo").Url();
+    } }
+
+@* the fun starts here *@
+
+<div class="board-item-container">
+    <div class="board-item-col img">
+        <img src="@photo" alt="@Model.Value("productName")">
+    </div>
+    <div class="board-item-col description">
+        @Html.Raw(Model.Value("content").ToString())
+    </div>
+</div>

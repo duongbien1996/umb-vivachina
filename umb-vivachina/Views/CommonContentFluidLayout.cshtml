@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = "ChildPageFluidLayout.cshtml";
+}
+
+@* the fun starts here *@
+
+
+<div class="common-content @Model.Name">
+    <div class="container ">
+        <div class="row clearfix">
+            <div class="content">
+                 @if (Model.HasValue("textContent"))
+                {
+                    @Html.Raw(Model.Value("textContent").ToString())
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

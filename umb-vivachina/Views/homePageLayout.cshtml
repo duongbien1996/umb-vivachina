@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<HomePage>
+@{ Layout = "masterLayout.cshtml"; }
+
+@{ 
+
+    // dùng cho dev
+    Html.RequiresCss("~/css/main.css", 2);
+}
+<div class="viva__homepage">
+    <section class="homepage-banner banner">
+        @Html.Partial("Layout/Banner")
+    </section>
+    <div class="viva__our_mission">
+        <div class="mission__content">
+            <div class="mission__content_wrap">
+                <p class="our_mission_text-title text-title--style">我們的使命</p>
+                <p class="our_mission_text-content text-content--style">把體育服務、消費品 融入生活中，帶給群眾快樂、 健康休閒的非凡生活</p>
+                <p class="our_mission_text-des text-des--style">非凡中國控股有限公司（「本集團」）的宗旨是創建更多元的運動及生活體驗並帶來消費契機，提倡運動健康的生活方式</p>
+            </div>
+        </div>
+    </div>
+</div>

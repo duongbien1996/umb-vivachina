@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@{ Layout = "ChildPageIRLayout.cshtml";
+    Html.RequiresCss("~/css/pages/ir-contact.css", 2);
+    var address = Model.Value("address");
+    var email = Model.Value("email");
+    var phone = Model.Value("phone");
+    var fax = Model.Value("fax"); }
+
+@* the fun starts here *@
+<div class="contact-us-container row">
+    <div class="contact-information">
+        <div class="contact-info">
+            <div class="info-item">
+                <div class="group-title">@Umbraco.GetDictionaryValue("Call Us")</div>
+                <div class="item-box">
+                    <div class="text-box">
+                        <div class="phone">
+                            <p><span>@Umbraco.GetDictionaryValue("Phone"):&nbsp;</span><span class="number-format-arabic">@phone</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-box">
+                    <div class="text-box">
+                        <div class="fax">
+                            <p><span>@Umbraco.GetDictionaryValue("fax"):&nbsp;</span><span class="number-format-arabic">@fax</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="group-title">@Umbraco.GetDictionaryValue("Mailing Address")</div>
+                <div class="text-box">
+                    <p>@Html.Raw(address)</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="group-title">@Umbraco.GetDictionaryValue("Email")</div>
+                <div class="text-box">
+                    <p><a href="mailto:@email" title="email">@email</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+
+/* Viết cho khối banner */
+.viva__banner {
+    background: url('../assets/images/im_banner.png') no-repeat center center;
+    background-size: cover;
+    height: 768px;
+    position: relative;
+    .viva__banner__slide {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        left: 0;
+        background: rgb(1 147 207 / 60%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .banner__slide__title {
+            color: $n-white;
+            .title--fs1  {
+                font-size: 42px;
+                display: inline-block;
+                margin-bottom: 40px;
+            }
+            .title--fs2  {
+                font-size: 56px;
+            }
+        }
+    }
+}
+
+.viva__our_mission {
+    background: url(../assets/images/im_mession.png) no-repeat top right;
+    height: 875px;
+    position: relative;
+    .mission__content {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;        
+        .mission__content_wrap {
+            width: 546px;
+            .text-title--style {
+                font-size: 30px;
+                line-height: 36px;
+                color: $n-yellow;
+                margin-bottom: 60px;
+            }
+            .text-content--style {
+                font-size: 42px;
+                line-height: 54px;
+                color: $n-blue;
+                margin-bottom: 40px;
+            }
+            .text-des--style {
+                font-size: 16px;
+                line-height: 26px;
+                font-weight: 400;
+                margin-bottom: 0;
+            }
+        }
+    }
+}

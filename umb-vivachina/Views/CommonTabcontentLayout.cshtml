@@ -1,0 +1,97 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web.Models
+@{
+    Layout = "ChildPageIRLayout.cshtml";
+    Html.RequiresCss("~/css/pages/common-tabcontent.css", 2);
+    var contents = Model.Children().Where(x => x.IsVisible()).ToList();
+}
+
+@* the fun starts here *@
+<div class="tabcontent-container">
+    <div class="tab-head">
+        <ul class="nav" role="tablist">
+            @if (contents != null && contents.Any())
+            {
+                int iIndex = 0;
+                foreach (var item in contents)
+                {
+                    var tabName = item.Name.ToLower().Replace(" ", "-").Replace("'", "-");
+                    var pageUrl = "#";
+                    var documentType = item.ContentType.Alias;
+                    var href = "#" + tabName;
+                    var isTab = true;
+
+                    if (documentType.Equals("redirectPage"))
+                    {
+                        pageUrl = item.Value<Link>("redirectLink")?.Url;
+                        href = pageUrl;
+                        isTab = false;
+                    }
+                    var dataToggle = isTab ? "data-toggle=tab" : "";
+                    <li class="@(iIndex==0?"active":"")" role="presentation">
+                        <a @dataToggle href="@href" aria-expanded="true">@item.Value("pageTitle")</a>
+                    </li>
+                    iIndex++;
+                }
+            }
+        </ul>
+    </div>
+    <div class="tab-content">
+        @if (contents != null && contents.Any())
+        {
+            int iIndex = 0;
+            foreach (var item in contents)
+            {
+                var tabName = item.Name.ToLower().Replace(" ", "-").Replace("'", "-");
+                var documentType = item.ContentType.Alias;
+                var toolSource = "";
+                if (documentType.Equals("commonEmbedPage"))
+                {
+                    toolSource = item.Value<string>("toolSource");
+                }
+                var sourceAdd = toolSource.Length > 0 ? "ea-src=" + toolSource : "";
+                if (iIndex > 0)
+                {
+                    sourceAdd = toolSource.Length > 0 ? "data-src=" + toolSource : "";
+                }
+                <div id="@tabName" class="tab-pane fade @(iIndex==0?"active in":"")" role"tabpanel"="">
+
+
+                    @if (documentType.Equals("commonEmbedPage"))
+                    {
+                        <iframe class="eurolandtool"
+                                allowtransparency=""
+                                frameborder="0"
+                                id="iframe-@item.UrlSegment"
+                                title="@item.Value("pageTitle")"
+                                marginheight="0"
+                                marginwidth="0"
+                                scrolling="no"
+                                @sourceAdd
+                                width="100%">
+                        </iframe>
+                    }
+                    @if (documentType.Equals("annualReportsPage"))
+                    {
+                        @Html.Partial("IR/Annual Reports");
+                    }
+                    @if (documentType.Equals("dividendDistributionPage"))
+                    {
+                        @Html.Partial("IR/Dividend Overview");
+                    }
+                    @if (documentType.Equals("financialPerformancePage"))
+                    {
+                        @Html.Partial("IR/Financial Performance");
+                    }
+                    @if (documentType.Equals("investorPresentationAndEarningsCallsPage"))
+                    {
+                        @Html.Partial("IR/Investor Presentation And Earnings Calls");
+                    }
+                    
+                </div>
+                iIndex++;
+            }
+        }
+      
+    </div>
+</div>
